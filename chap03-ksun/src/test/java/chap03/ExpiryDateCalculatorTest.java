@@ -17,6 +17,19 @@ public class ExpiryDateCalculatorTest {
                 LocalDate.of(2024, 6, 5));
     }
 
+    @Test
+    void next_month_expiryDate_is_less_than_this_month(){
+        assertExpiryDate(
+                LocalDate.of(2024, 1, 31), 10_000, 
+                LocalDate.of(2024, 2, 29));
+        assertExpiryDate(
+                LocalDate.of(2024, 5, 31), 10_000, 
+                LocalDate.of(2024, 6, 30));
+        assertExpiryDate(
+                LocalDate.of(2025, 1, 31), 10_000, 
+                LocalDate.of(2025, 2, 28));
+    }
+
     private void assertExpiryDate(
         LocalDate billingDate, int payAmount, LocalDate expectedExpiryDate
     )  {
