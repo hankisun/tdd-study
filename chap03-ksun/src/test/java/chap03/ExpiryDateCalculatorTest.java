@@ -91,6 +91,24 @@ public class ExpiryDateCalculatorTest {
                 LocalDate.of(2024, 9, 30));
     }
 
+    @Test
+    void firstBillingDate_not_same_with_expiryDate_over_10k_won() {
+        assertExpiryDate(
+                PayData.builder()
+                        .firstBillingDate(LocalDate.of(2024, 1, 31))
+                        .billingDate(LocalDate.of(2024, 2, 28))
+                        .payAmount(20_000)
+                        .build(), 
+                LocalDate.of(2024, 4, 30));
+        assertExpiryDate(
+                PayData.builder()
+                        .firstBillingDate(LocalDate.of(2024, 3, 31))
+                        .billingDate(LocalDate.of(2024, 4, 30))
+                        .payAmount(30_000)
+                        .build(), 
+                LocalDate.of(2024, 7, 31));
+    }
+
     private void assertExpiryDate(
         PayData payData, LocalDate expectedExpiryDate
     )  {
